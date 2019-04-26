@@ -1,0 +1,11 @@
+AWSCredentials credentials = new BasicAWSCredentials(
+                ("AWS_ACCESS_KEY"),
+                ("AWS_SECRET_KEY"));
+
+AmazonS3 s3Client = new AmazonS3Client(credentials);
+
+S3Objects.inBucket(s3Client, "bucket-name").forEach((S3ObjectSummary objectSummary) -> {
+    // TODO: Consume `objectSummary` the way you need
+    System.out.println("key : "+ objectSummary.getKey());
+
+});
