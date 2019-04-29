@@ -1,0 +1,11 @@
+AWSCredentials credentials = new BasicAWSCredentials("AWS_ACCESS_KEY","AWS_SECRET_KEY");
+
+  AmazonS3 s3Client = new AmazonS3Client(credentials);
+  S3Object object = s3Client.getObject(
+          new GetObjectRequest(BUCKET_NAME, key));
+  InputStream objectData = object.getObjectContent();
+  fileName = fileName.replaceAll(" ", "_");
+  File file = new File(fileName);
+  OutputStream outputStream = new FileOutputStream(file);
+  IOUtils.copy(objectData, outputStream);
+  outputStream.close();
