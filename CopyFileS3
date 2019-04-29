@@ -1,0 +1,11 @@
+AWSCredentials credentials = new BasicAWSCredentials("AWS_ACCESS_KEY","AWS_SECRET_KEY"));
+AmazonS3 s3 = new AmazonS3Client(credentials);
+List<S3ObjectSummary> s3objects = s3.listObjects(new ListObjectsRequest().
+withBucketName("BUCKET_NAME")
+.withPrefix("PREFIX")).getObjectSummaries();
+for (S3ObjectSummary s3Object : s3objects) {
+String key = s3Object.getKey();
+String key1 ="copyFileKey";
+s3.copyObject(BUCKET_NAME,key,BUCKET_NAME,key1);
+}
+    
