@@ -1,0 +1,11 @@
+AWSCredentials credentials = new BasicAWSCredentials("AWS_ACCESS_KEY","AWS_SECRET_KEY");
+
+// create a client connection based on credentials
+AmazonS3 s3client = new AmazonS3Client(credentials);
+
+ObjectMetadata metadata = new ObjectMetadata();
+//  metadata.setContentType("application/pdf");
+metadata.setContentDisposition("inline");
+// upload file to folder and set it to public
+s3client.putObject(new PutObjectRequest("BUCKET_NAME", "FOLDER_NAME"+ File.separator + fileType, doc).withMetadata(metadata)
+        .withCannedAcl(CannedAccessControlList.PublicRead));
