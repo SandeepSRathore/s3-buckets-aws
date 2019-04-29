@@ -1,0 +1,18 @@
+try {
+    AWSCredentials credentials = new BasicAWSCredentials("AWS_ACCESS_KEY","AWS_SECRET_KEY");
+
+    AmazonS3 s3 = new AmazonS3Client(credentials);
+    List<S3ObjectSummary> s3objects = s3.listObjects(new ListObjectsRequest().
+            withBucketName(BUCKET_NAME)
+            .withPrefix("folderprefix")).getObjectSummaries();
+
+    for (S3ObjectSummary summary : s3objects) {
+        String sourceKey = summary.getKey();
+        String destinationKey = sourceKey.replaceFirst("sourceFolderName", "destinationFolderName");
+        s3.copyObject(BUCKET_NAME, summary.getKey(), BUCKET_NAME, destinationKey);
+    }
+    return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
